@@ -1,0 +1,16 @@
+Challenge Question
+Retrieve the top 5 weeks with the highest patient refusals across all services, showing week, service, patients_refused, and patients_request. Sort by patients_refused in descending order.
+
+Query :- SELECT patient_id, name, service, satisfaction FROM patients ORDER BY satisfaction DESC LIMIT 2, 5;
+
+Output :-
++--------------+------------------+------------------+--------------+
+| patient_id   | name             | service          | satisfaction |
++--------------+------------------+------------------+--------------+
+| PAT-3abe7e51 | Mr. David Wright | general_medicine |           99 |
+| PAT-26a57bc7 | Jeffrey Mills    | surgery          |           99 |
+| PAT-346a17fa | Kathryn Lester   | ICU              |           99 |
+| PAT-4afc065e | Mary Jensen      | surgery          |           99 |
+| PAT-1112a754 | Ashley Smith     | surgery          |           99 |
++--------------+------------------+------------------+--------------+
+5 rows in set (0.00 sec)
