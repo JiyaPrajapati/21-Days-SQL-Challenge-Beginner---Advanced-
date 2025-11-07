@@ -1,0 +1,12 @@
+Challenge Question
+Calculate the total number of patients admitted, total patients refused, and the average patient satisfaction across all services and weeks. Round the average satisfaction to 2 decimal places.
+
+Query :- SELECT SUM(patients_admitted) AS total_patients_admitted, SUM(patients_refused) AS total_patients_refused, ROUND(AVG(patient_satisfaction), 2) AS avg_patient_satisfaction FROM services_weekly;
+
+Output :-
++-------------------------+------------------------+--------------------------+
+| total_patients_admitted | total_patients_refused | avg_patient_satisfaction |
++-------------------------+------------------------+--------------------------+
+|                    5851 |                   7642 |                    80.00 |
++-------------------------+------------------------+--------------------------+
+1 row in set (0.16 sec)
