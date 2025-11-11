@@ -1,0 +1,16 @@
+Challenge Question
+Calculate the average length of stay (in days) for each service, showing only services where the average stay is more than 7 days. 
+Also show the count of patients and order by average stay descending.
+
+Query :- SELECT service, AVG(DATEDIFF(departure_date, arrival_date)) AS avg_length_of_stay, COUNT(patient_id) AS patient_count 
+FROM patients WHERE departure_date IS NOT NULL GROUP BY service HAVING avg_length_of_stay > 7 ORDER BY avg_length_of_stay DESC;
+
+Output :-
++-----------+--------------------+---------------+
+| service   | avg_length_of_stay | patient_count |
++-----------+--------------------+---------------+
+| surgery   |             7.8661 |           254 |
+| ICU       |             7.6058 |           241 |
+| emergency |             7.1597 |           263 |
++-----------+--------------------+---------------+
+3 rows in set (0.42 sec)
