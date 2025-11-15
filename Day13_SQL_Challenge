@@ -1,0 +1,38 @@
+Challenge Question:
+Create a comprehensive report showing patient_id, patient name, age, service, and the total number of staff members available in their service. 
+Only include patients from services that have more than 5 staff members. Order by number of staff descending, then by patient name.
+
+Query: SELECT p.patient_id, p.name, p.age, p.service, sw.staff_count 
+FROM patients p JOIN ( SELECT service, COUNT(*) AS staff_count  FROM services_weekly GROUP BY service ) sw ON p.service = sw.service 
+WHERE sw.staff_count > 5 
+ORDER BY sw.staff_count DESC, p.name;
+
+Output:
++--------------+-------------------------+------+------------------+-------------+
+| patient_id   | name                    | age  | service          | staff_count |
++--------------+-------------------------+------+------------------+-------------+
+| PAT-8374cba5 | Aaron Miller            |   49 | general_medicine |          52 |
+| PAT-0f8876bf | Aaron Parker            |   70 | emergency        |          52 |
+| PAT-0b1acdd9 | Aaron Schroeder         |    1 | emergency        |          52 |
+| PAT-3a44c795 | Adam Burgess            |    3 | general_medicine |          52 |
+| PAT-09edc78a | Adam Jackson            |   45 | emergency        |          52 |
+| PAT-76b1239a | Adam Taylor             |   73 | surgery          |          52 |
+| PAT-1cc7c1b5 | Adam Vaughan            |    2 | ICU              |          52 |
+| PAT-a91cb1a0 | Aimee Gonzalez          |   28 | general_medicine |          52 |
+| PAT-0c7c720b | Aimee Turner            |   20 | emergency        |          52 |
+| PAT-bf1b13b6 | Alejandro Deleon        |   14 | ICU              |          52 |
+| PAT-8b68dd5f | Alex Hernandez          |    2 | emergency        |          52 |
+| PAT-d78122d6 | Alexa Buck              |   73 | ICU              |          52 |
+...
+...
+...
+| PAT-3d429a6c | Yolanda Green           |   15 | emergency        |          52 |
+| PAT-0b36c5db | Yvonne Burns            |   52 | general_medicine |          52 |
+| PAT-d977b532 | Yvonne Chambers         |   26 | surgery          |          52 |
+| PAT-84383577 | Zachary Cole            |   48 | emergency        |          52 |
+| PAT-fc0fba74 | Zachary Mendoza         |    2 | ICU              |          52 |
+| PAT-68f98442 | Zachary Michael         |   74 | general_medicine |          52 |
+| PAT-345029ce | Zachary Mitchell        |    8 | ICU              |          52 |
+| PAT-40efa3f6 | Zachary Robinson        |   39 | emergency        |          52 |
++--------------+-------------------------+------+------------------+-------------+
+1000 rows in set (0.10 sec)
