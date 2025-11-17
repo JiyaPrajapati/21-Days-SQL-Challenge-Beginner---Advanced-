@@ -1,0 +1,28 @@
+Challenge Question:
+Create a comprehensive service analysis report for week 20 showing: service name, total patients admitted that week, total patients refused, 
+average patient satisfaction, count of staff assigned to service, and count of staff present that week. Order by patients admitted descending.
+
+Query: 
+SELECT sw.service, 
+SUM(sw.patients_admitted) AS total_admitted, 
+SUM(sw.patients_refused) AS total_refused, 
+AVG(sw.patient_satisfaction) AS avg_satisfaction, 
+COUNT(DISTINCT st.staff_id) AS staff_assigned, 
+COUNT(DISTINCT ss.staff_id) AS staff_present_week20 
+FROM services_weekly sw 
+LEFT JOIN staff st ON sw.service = st.service 
+LEFT JOIN staff_schedule ss ON st.staff_id = ss.staff_id AND ss.week = 20 
+WHERE sw.week = 20 
+GROUP BY sw.service 
+ORDER BY total_admitted DESC;
+
+Output:
++------------------+----------------+---------------+------------------+----------------+----------------------+
+| service          | total_admitted | total_refused | avg_satisfaction | staff_assigned | staff_present_week20 |
++------------------+----------------+---------------+------------------+----------------+----------------------+
+| general_medicine |           1080 |           810 |          64.0000 |             27 |                   27 |
+| surgery          |            682 |           176 |          99.0000 |             22 |                   22 |
+| emergency        |            609 |           696 |          93.0000 |             29 |                   29 |
+| ICU              |            480 |           192 |          85.0000 |             48 |                   48 |
++------------------+----------------+---------------+------------------+----------------+----------------------+
+4 rows in set (0.25 sec)
