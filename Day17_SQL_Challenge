@@ -1,0 +1,22 @@
+Challenge Question: 
+Create a report showing each service with: service name, total patients admitted, the difference between their total admissions and the average 
+admissions across all services, and a rank indicator ('Above Average', 'Average', 'Below Average'). Order by total patients admitted descending.
+
+Query:
+mysql> SELECT s.service, SUM(s.patients_admitted) AS total_admitted, SUM(s.patients_admitted) - ( 
+SELECT AVG(total_admissions) FROM ( SELECT SUM(patients_admitted) AS total_admissions FROM services_weekly GROUP BY service ) AS x ) 
+AS diff_from_avg, CASE WHEN SUM(s.patients_admitted) > ( SELECT AVG(total_admissions) FROM ( SELECT SUM(patients_admitted) AS total_admissions 
+FROM services_weekly GROUP BY service ) AS x ) THEN 'Above Average' WHEN SUM(s.patients_admitted) = ( SELECT AVG(total_admissions) 
+FROM ( SELECT SUM(patients_admitted) AS total_admissions FROM services_weekly GROUP BY service ) AS x ) THEN 'Average' ELSE 'Below Average' 
+END AS rank_indicator FROM services_weekly s GROUP BY s.service ORDER BY total_admitted DESC;
+
+Output:
++------------------+----------------+---------------+----------------+
+| service          | total_admitted | diff_from_avg | rank_indicator |
++------------------+----------------+---------------+----------------+
+| general_medicine |           2332 |      869.2500 | Above Average  |
+| surgery          |           1686 |      223.2500 | Above Average  |
+| emergency        |           1185 |     -277.7500 | Below Average  |
+| ICU              |            648 |     -814.7500 | Below Average  |
++------------------+----------------+---------------+----------------+
+4 rows in set (0.00 sec)
